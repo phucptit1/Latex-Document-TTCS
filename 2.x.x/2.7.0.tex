@@ -1,0 +1,555 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T5]{fontenc}
+\usepackage[vietnamese]{babel}
+\usepackage{geometry}
+\geometry{top=2cm, bottom=2cm, left=2.5cm, right=2cm}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{amssymb}
+\usepackage{tgtermes}
+\usepackage{indentfirst}
+\usepackage{booktabs}
+\usepackage{xcolor}
+\usepackage{colortbl}
+
+% Màu nhẹ cho header bảng
+\definecolor{headerblue}{RGB}{220,230,242}
+\definecolor{notegreen}{RGB}{234,250,234}
+
+\begin{document}
+
+\begin{center}
+    \Large\textbf{XÁC ĐỊNH YÊU CẦU HỆ THỐNG} \\
+    \vspace{0.2cm}
+    \large\textbf{Đề tài: Hệ thống nhận diện bệnh trên cây lúa dựa trên thuật toán học sâu CNN}
+\end{center}
+
+\section*{Phạm vi áp dụng đề tài}
+\begin{itemize}
+    \item \textbf{Phạm vi nghiệp vụ:} Hệ thống số hóa quy trình chẩn đoán bệnh lúa qua hình ảnh bằng công nghệ nhận diện chuyên sâu. Hệ thống kết hợp phân tích hình ảnh và các thông số môi trường để đưa ra chẩn đoán chính xác. Kết hợp xây dựng kho tri thức về dinh dưỡng thực vật để gợi ý các loại vitamin và vi lượng cần bổ sung dựa trên việc truy xuất dữ liệu thông minh.
+    \item \textbf{Phạm vi đối tượng:} Phục vụ Nông dân/Cán bộ khuyến nông (nhận diện \& nhận gợi ý dinh dưỡng) và Quản trị viên (quản lý danh mục, cập nhật mô hình, quản lý kho kiến thức hệ thống).
+    \item \textbf{Giới hạn đề tài:} Hệ thống tự chủ kho dữ liệu dinh dưỡng nội bộ. Đối với thông số môi trường, hệ thống sử dụng tọa độ vị trí (GPS) để tự động truy xuất dữ liệu thời tiết làm dữ liệu phụ trợ. Hỗ trợ nhận diện nhiều loại bệnh cùng lúc trên cùng một ảnh.
+\end{itemize}
+
+\section*{Các bước xác định yêu cầu}
+
+Quá trình thực hiện xác định yêu cầu gồm 2 bước chính như sau:
+\begin{itemize}
+    \item \textbf{Bước 1:} Khảo sát hiện trạng, kết quả nhận được là các báo cáo về hiện trạng chẩn đoán bệnh trên cây lúa và nhu cầu bổ sung dinh dưỡng.
+    \item \textbf{Bước 2:} Lập danh sách các yêu cầu, kết quả nhận được là danh sách các yêu cầu sẽ được thực hiện trên hệ thống máy tính.
+\end{itemize}
+
+\subsection*{1. Đối tượng tham gia xác định yêu cầu}
+Gồm 2 nhóm người:
+\begin{itemize}
+    \item \textbf{Chuyên viên tin học:} Thiết kế kiến trúc nhận diện thông minh, xây dựng kho kiến thức hệ thống và luồng xử lý truy xuất thông tin dinh dưỡng chính xác nhất.
+    \item \textbf{Nh nhà chuyên môn (Kỹ sư nông nghiệp):} Cung cấp dữ liệu ảnh kèm thông số môi trường tương ứng, gán nhãn bệnh và trực tiếp biên soạn/chuẩn hóa bộ dữ liệu văn bản về vitamin/dinh dưỡng.
+\end{itemize}
+
+Hai nhóm người này phối hợp thật chặt chẽ để có thể xác định đầy đủ và chính xác các yêu cầu.
+
+\hrulefill
+
+\subsection*{2. Khảo sát hiện trạng}
+\subsubsection*{2.1 Các hình thức thực hiện phổ biến}
+\begin{itemize}
+    \item \textbf{Quan sát:} Theo dõi và ghi hình quá trình cây lúa biểu hiện triệu chứng thiếu hụt dinh dưỡng hoặc mắc nhiều bệnh cùng lúc trên đồng ruộng dưới các điều kiện thời tiết khác nhau.
+    \item \textbf{Khảo sát:} Khảo sát các người nông dân về mối liên hệ giữa các loại bệnh lúa, sự thiếu hụt dinh dưỡng và sự tác động của môi trường (nhiệt độ, độ ẩm).
+    \item \textbf{Thu thập thông tin, tài liệu:} Thu thập tập dữ liệu ảnh lá lúa (kèm dữ liệu đặc tả về thời tiết/độ ẩm) và chuẩn bị bộ dữ liệu văn bản về dinh dưỡng thực vật.
+\end{itemize}
+
+\subsubsection*{2.2 Quy trình thực hiện}
+\textbf{A. Tìm hiểu tổng quan về thế giới thực:}
+\begin{itemize}
+    \item Quy mô hoạt động nông nghiệp, các bệnh dịch thường gặp.
+    \item Xu hướng chuyển dịch sang bổ sung vitamin tăng sức đề kháng thay vì lạm dụng thuốc hóa học.
+\end{itemize}
+
+\textbf{B. Tìm hiểu hiện trạng tổ chức (cơ cấu tổ chức):}
+\begin{itemize}
+    \item Cơ cấu tổ chức bao gồm các chức danh: Quản trị viên (Quản lý dữ liệu bệnh, mô hình, tập dữ liệu dinh dưỡng), Người dùng (Nông dân tải ảnh và mô tả tình trạng).
+\end{itemize}
+
+\textbf{C. Tìm hiểu hiện trạng nghiệp vụ:}
+\begin{itemize}
+    \item Việc tìm hiểu dựa trên: Thông tin đầu vào, Quá trình xử lý, Thông tin kết xuất.
+    \item Xếp loại các nghiệp vụ vào 4 loại: Lưu trữ, Tính toán, Tra cứu, Kết xuất.
+\end{itemize}
+
+\hrulefill
+
+\subsection*{3. Lập danh sách các yêu cầu}
+\subsubsection*{3.1 Xác định yêu cầu chức năng nghiệp vụ}
+
+% =====================================================================
+% BỘ PHẬN: NGƯỜI DÙNG (Mã số: US)
+% =====================================================================
+\section*{A. BỘ PHẬN: NGƯỜI DÙNG (Mã số: US)}
+
+\textbf{1. Bảng yêu cầu chức năng nghiệp vụ}
+
+\begin{longtable}{|c|p{3.5cm}|p{2cm}|p{2.5cm}|p{4.5cm}|}
+\hline
+\rowcolor{headerblue}
+\textbf{STT} & \textbf{Công việc} & \textbf{Loại việc} & \textbf{Quy định} & \textbf{Ghi chú giao diện} \\
+\hline
+\endhead
+\multicolumn{5}{|l|}{\cellcolor{notegreen}\textbf{I. Quản lý tài khoản cá nhân}} \\
+\hline
+1 & Đăng ký tài khoản mới & Lưu trữ & US\_QĐ 1 & Biểu mẫu có nút ẩn/hiện mật khẩu. \\
+\hline
+2 & Đăng nhập hệ thống & Tra cứu & US\_QĐ 2 & Có liên kết ``Quên mật khẩu?'' nổi bật. \\
+\hline
+3 & Khôi phục mật khẩu & Lưu trữ & US\_QĐ 3 & Cửa sổ nhập mã xác thực gửi qua email. \\
+\hline
+\multicolumn{5}{|l|}{\cellcolor{notegreen}\textbf{II. Hồ sơ người dùng}} \\
+\hline
+4 & Xem thông tin người dùng & Tra cứu & US\_QĐ 4 & Hiển thị hồ sơ người dùng dạng thẻ. \\
+\hline
+5 & Chỉnh sửa thông tin người dùng & Lưu trữ & US\_QĐ 5 & Các ô không được sửa sẽ bị làm mờ (disable). \\
+\hline
+\multicolumn{5}{|l|}{\cellcolor{notegreen}\textbf{III. Phân tích bệnh nông nghiệp}} \\
+\hline
+6 & Upload ảnh lúa & Lưu trữ & US\_QĐ 6a & Nút chụp ảnh hoặc chọn tệp. \\
+\hline
+7 & Nhập thông số bên ngoài & Lưu trữ & US\_QĐ 6b & Form nhập liệu tình trạng thời tiết và môi trường. \\
+\hline
+8 & Xem kết quả phân tích & Tra cứu, Tính toán & US\_QĐ 7 & Hiển thị thanh tiến trình khi hệ thống đang phân tích. \\
+\hline
+\multicolumn{5}{|l|}{\cellcolor{notegreen}\textbf{IV. Tra cứu \& Phản hồi}} \\
+\hline
+9 & Tra cứu lịch sử & Tra cứu & US\_QĐ 8 & Hiển thị danh sách tóm tắt, phân trang 10 dòng/trang. \\
+\hline
+10 & Xem chi tiết lịch sử & Tra cứu & US\_QĐ 9 & Hiển thị đầy đủ thông tin của một lần chẩn đoán cũ. \\
+\hline
+11 & Gửi phản hồi kết quả chẩn đoán & Lưu trữ & US\_QĐ 10 & Nút gửi phản hồi được đặt ở màn hình kết quả hoặc chi tiết lịch sử. \\
+\hline
+12 & Xem kết quả giải quyết phản hồi & Tra cứu & US\_QĐ 11 & Giao diện dạng danh sách theo dõi tình trạng khiếu nại. \\
+\hline
+\end{longtable}
+
+\vspace{0.3cm}
+\textbf{2. Bảng Quy định / Công thức liên quan --- Người dùng}
+
+% ---- US_QĐ 1 ----
+\vspace{0.2cm}
+\noindent\textbf{US\_QĐ 1 --- Quy định Đăng ký tài khoản}
+\begin{longtable}{|c|l|p{2.5cm}|c|p{5cm}|}
+\hline
+\rowcolor{headerblue}
+\textbf{STT} & \textbf{Tên thông tin} & \textbf{Định dạng nhập} & \textbf{Bắt buộc} & \textbf{Ràng buộc / Ghi chú} \\
+\hline
+\endhead
+1 & Tên đăng nhập & Văn bản & \textbf{Có} & Phải là duy nhất, không trùng lặp. Chỉ dùng chữ cái, số và dấu gạch dưới. \\
+\hline
+2 & Mật khẩu & Văn bản & \textbf{Có} & Tối thiểu 8 ký tự, gồm ít nhất 1 chữ hoa, 1 chữ số và 1 kí tự đặc biệt.\\
+\hline
+3 & Địa chỉ Email & Văn bản & \textbf{Có} & Phải đúng định dạng và chưa từng được đăng ký trong hệ thống. \\
+\hline
+\end{longtable}
+\noindent\textbf{Quy tắc xử lý:} Hệ thống sẽ tự động bảo vệ mật khẩu trước khi lưu trữ. Tài khoản được tạo thành công sẽ tự động chuyển vào màn hình chính.
+
+% ---- US_QĐ 2 ----
+\vspace{0.4cm}
+\noindent\textbf{US\_QĐ 2 --- Quy định Đăng nhập}
+\begin{longtable}{|c|l|p{2.5cm}|c|p{5cm}|}
+\hline
+\rowcolor{headerblue}
+\textbf{STT} & \textbf{Tên thông tin} & \textbf{Định dạng nhập} & \textbf{Bắt buộc} & \textbf{Ràng buộc / Ghi chú} \\
+\hline
+\endhead
+1 & Tên đăng nhập hoặc Email & Văn bản & \textbf{Có} & Cho phép dùng 1 trong 2 thông tin để đăng nhập. \\
+\hline
+2 & Mật khẩu & Văn bản & \textbf{Có} & Hệ thống đối chiếu với mật khẩu đã bảo mật. \\
+\hline
+\end{longtable}
+\noindent\textbf{Quy tắc xử lý:} 
+\begin{itemize}
+    \item Nếu nhập sai thông tin, hệ thống chỉ báo chung chung "Tên đăng nhập hoặc mật khẩu không chính xác" để bảo vệ thông tin.
+    \item Nếu nhập sai mật khẩu 5 lần liên tiếp, tài khoản sẽ bị tạm khóa trong 15 phút để chống dò mật khẩu.
+    \item Sau khi đăng nhập thành công, hệ thống giữ trạng thái đăng nhập trong vòng 7 ngày.
+\end{itemize}
+
+% ---- US_QĐ 3 ----
+\vspace{0.4cm}
+\noindent\textbf{US\_QĐ 3 --- Quy định Khôi phục mật khẩu}
+\begin{longtable}{|c|l|p{2.5cm}|c|p{5cm}|}
+\hline
+\rowcolor{headerblue}
+\textbf{STT} & \textbf{Tên thông tin} & \textbf{Định dạng nhập} & \textbf{Bắt buộc} & \textbf{Ràng buộc / Ghi chú} \\
+\hline
+\endhead
+1 & Địa chỉ Email & Văn bản & \textbf{Có} & Dùng để nhận mã xác thực (OTP). \\
+\hline
+2 & Mã xác thực & Ký tự số & \textbf{Có} & Gồm 6 ký tự số. Chỉ có hiệu lực trong 10 phút. Nhập sai 3 lần sẽ bị hủy. \\
+\hline
+3 & Mật khẩu mới & Văn bản & \textbf{Có} & Cần đáp ứng độ mạnh như khi đăng ký. Không được trùng mật khẩu cũ. \\
+\hline
+4 & Xác nhận mật khẩu & Văn bản & \textbf{Có} & Phải gõ lại chính xác mật khẩu mới. \\
+\hline
+\end{longtable}
+\noindent\textbf{Quy tắc xử lý:} Mọi phiên đăng nhập cũ trên các thiết bị khác sẽ tự động bị hủy ngay sau khi đặt lại mật khẩu thành công.
+
+% ---- US_QĐ 4 ----
+\vspace{0.4cm}
+\noindent\textbf{US\_QĐ 4 --- Quy định Xem thông tin người dùng}
+\begin{itemize}
+    \item \textbf{Quyền truy cập:} Người dùng chỉ xem được hồ sơ của chính mình sau khi đã đăng nhập thành công.
+    \item \textbf{Dữ liệu hiển thị:} Bao gồm Tên hiển thị, Tên đăng nhập, Địa chỉ Email, Vị trí GPS (tọa độ) và ngày tham gia hệ thống.
+\end{itemize}
+
+% ---- US_QĐ 5 ----
+\vspace{0.4cm}
+\noindent\textbf{US\_QĐ 5 --- Quy định Chỉnh sửa thông tin người dùng}
+\begin{longtable}{|c|l|p{2.5cm}|c|p{5cm}|}
+\hline
+\rowcolor{headerblue}
+\textbf{STT} & \textbf{Tên thông tin} & \textbf{Định dạng nhập} & \textbf{Được sửa} & \textbf{Ghi chú} \\
+\hline
+\endhead
+1 & Tên đăng nhập & Văn bản & \textbf{Không} & Thông tin định danh cốt lõi, không được phép thay đổi. \\
+\hline
+2 & Địa chỉ Email & Văn bản & \textbf{Không} & Dùng để liên lạc và bảo mật tài khoản. \\
+\hline
+3 & Họ và tên hiển thị & Văn bản & \textbf{Có} & Tên hiển thị trên giao diện phần mềm. \\
+\hline
+209: 4 & Vị trí GPS & Bản đồ nhúng & \textbf{Có} & Người dùng kéo thả ghim trên bản đồ để lưu tọa độ mặc định vào hệ thống. \\
+\hline
+\end{longtable}
+
+% ---- US_QĐ 6 ----
+\vspace{0.4cm}
+\noindent\textbf{US\_QĐ 6a --- Quy định Upload ảnh lúa}
+\begin{longtable}{|c|l|p{2.5cm}|c|p{5cm}|}
+\hline
+\rowcolor{headerblue}
+\textbf{STT} & \textbf{Tên thông tin} & \textbf{Định dạng nhập} & \textbf{Bắt buộc} & \textbf{Ràng buộc / Ghi chú} \\
+\hline
+\endhead
+1 & Hình ảnh lá lúa & Tệp tin ảnh & \textbf{Có} & Định dạng JPG, PNG. Dung lượng tối đa 10MB. \\
+\hline
+\end{longtable}
+
+\vspace{0.4cm}
+\noindent\textbf{US\_QĐ 6b --- Quy định Nhập thông số bên ngoài}
+\begin{longtable}{|c|l|p{2.5cm}|c|p{5cm}|}
+\hline
+\rowcolor{headerblue}
+\textbf{STT} & \textbf{Tên thông tin} & \textbf{Định dạng nhập} & \textbf{Bắt buộc} & \textbf{Ràng buộc / Ghi chú} \\
+\hline
+\endhead
+234: 1 & Vị trí hiện tại & Bản đồ nhúng & Không & Hệ thống tự động lấy tọa độ từ hồ sơ. Người dùng có thể kéo thả ghim trên bản đồ để chọn lại vị trí khác. \\
+\hline
+2 & Mô tả thực tế & Văn bản & Không & Người dùng ghi chú thêm tình trạng ruộng lúa (ví dụ: ngập úng, sương mù). \\
+\hline
+\end{longtable}
+
+% ---- US_QĐ 7 ----
+\vspace{0.4cm}
+\noindent\textbf{US\_QĐ 7 --- Quy định Xem kết quả phân tích}
+\begin{itemize}
+    \item \textbf{Xem kết quả nhận diện bệnh:} (Quy định: Hiển thị tên bệnh, hình ảnh vùng bị bệnh, độ tin cậy được làm tròn). Hệ thống khoanh vùng các vị trí AI phát hiện dấu hiệu bệnh trên ảnh gốc.
+    \item \textbf{Xem gợi ý dinh dưỡng:} (Quy định: Liệt kê các hoạt chất cần thiết, hướng dẫn cách sử dụng bằng ngôn ngữ tự nhiên). Hệ thống tự động truy xuất dữ liệu từ kho kiến thức hệ thống để đưa ra tư vấn.
+\end{itemize}
+
+% ---- US_QĐ 8 ----
+\vspace{0.4cm}
+\noindent\textbf{US\_QĐ 8 --- Quy định Tra cứu lịch sử}
+\begin{longtable}{|c|l|p{2.5cm}|c|p{5cm}|}
+\hline
+\rowcolor{headerblue}
+\textbf{STT} & \textbf{Tên thông tin lọc} & \textbf{Định dạng nhập} & \textbf{Bắt buộc} & \textbf{Ràng buộc / Ghi chú} \\
+\hline
+\endhead
+1 & Từ ngày & Ngày tháng & Không & Mốc thời gian bắt đầu tìm kiếm. \\
+\hline
+2 & Đến ngày & Ngày tháng & Không & Mốc thời gian kết thúc tìm kiếm. \\
+\hline
+3 & Tên bệnh & Văn bản & Không & Chọn tên bệnh cụ thể để tìm lại các lần chẩn đoán liên quan. \\
+\hline
+\end{longtable}
+\noindent\textbf{Quy tắc xử lý:} Hệ thống hiển thị danh sách tóm tắt (Ảnh thu nhỏ, tên bệnh, ngày tháng) của cá nhân người dùng đang đăng nhập. 
+
+% ---- US_QĐ 9 ----
+\vspace{0.4cm}
+    \item \textbf{Nội dung hiển thị:} Hiển thị toàn bộ kết quả chẩn đoán bệnh, vùng khoanh nhận diện và gợi ý dinh dưỡng tương ứng với lần chẩn đoán đó.
+\end{itemize}
+
+% ---- US_QĐ 10 ----
+\vspace{0.4cm}
+\noindent\textbf{US\_QĐ 10 --- Quy định Gửi phản hồi kết quả chẩn đoán}
+\begin{longtable}{|c|l|p{2.5cm}|c|p{5cm}|}
+\hline
+\rowcolor{headerblue}
+\textbf{STT} & \textbf{Tên thông tin} & \textbf{Định dạng nhập} & \textbf{Bắt buộc} & \textbf{Ràng buộc / Ghi chú} \\
+\hline
+\endhead
+1 & Loại bệnh đúng & Danh sách chọn & \textbf{Có} & Nông dân chọn loại bệnh mà họ cho là chính xác. \\
+\hline
+2 & Lời nhắn kèm theo & Văn bản & Không & Mô tả thêm lý do hoặc tình trạng thực tế. \\
+\hline
+\end{longtable}
+\noindent\textbf{Quy tắc xử lý:} 
+\begin{itemize}
+    \item \textbf{Hướng dẫn thao tác:} Người dùng nhấp chọn tên bệnh thực tế từ danh sách có sẵn. Nếu chọn "Khác", hệ thống hiển thị thêm một ô trống bắt buộc người dùng gõ tên bệnh.
+    \item Sau khi gửi, phiếu sẽ ở trạng thái "Chờ xử lý". Người dùng không được phép sửa sau khi đã gửi thành công.
+\end{itemize}
+
+% ---- US_QĐ 11 ----
+\vspace{0.4cm}
+\noindent\textbf{US\_QĐ 11 --- Quy định Xem kết quả giải quyết phản hồi}
+\begin{itemize}
+    \item \textbf{Thông tin hiển thị:} Trạng thái phiếu (Chờ xử lý, Chấp nhận, Từ chối), Tên Admin xử lý và Lời nhắn phản hồi từ chuyên gia.
+    \item \textbf{Thông báo:} Hệ thống sẽ hiển thị biểu tượng thông báo (chuông) khi Admin đã cập nhật kết quả xử lý.
+\end{itemize}
+
+% ==============================================================================
+\section*{B. BỘ PHẬN: QUẢN TRỊ VIÊN (Mã số: AD)}
+
+\noindent \textbf{1. Mục tiêu:} Cung cấp các công cụ quản lý hệ thống, kiểm soát người dùng, cập nhật tri thức nông nghiệp và theo dõi hiệu suất của mô hình trí tuệ nhân tạo.
+
+\noindent \textbf{2. Bảng danh sách các chức năng (Nghiệp vụ)}
+
+\begin{longtable}{|c|p{4.5cm}|p{2cm}|c|p{4.5cm}|}
+\hline
+\rowcolor{headerblue}
+\textbf{STT} & \textbf{Tên chức năng} & \textbf{Loại} & \textbf{Mã số} & \textbf{Ghi chú} \\
+\hline
+\endhead
+\multicolumn{5}{|l|}{\cellcolor{notegreen}\textbf{I. Quản lý tài khoản}} \\
+\hline
+1 & Đăng nhập hệ thống quản trị & Tra cứu & AD\_QĐ 1 & Truy cập trang quản trị. \\
+\hline
+2 & Đổi mật khẩu quản trị & Lưu trữ & AD\_QĐ 1 & Đảm bảo an toàn tài khoản. \\
+\hline
+3 & Tự động khởi tạo Admin & Hệ thống & AD\_QĐ 1 & Khởi tạo tài khoản đầu tiên. \\
+\hline
+\multicolumn{5}{|l|}{\cellcolor{notegreen}\textbf{II. Quản lý danh mục cốt lõi}} \\
+\hline
+4 & Quản lý bệnh & Lưu trữ & AD\_QĐ 2 & Thêm, sửa, ẩn bệnh lúa. \\
+\hline
+5 & Quản lý tri thức dinh dưỡng & Lưu trữ & AD\_QĐ 3 & Cập nhật kho tri thức thông minh. \\
+\hline
+\multicolumn{5}{|l|}{\cellcolor{notegreen}\textbf{III. Quản lý người dùng}} \\
+\hline
+6 & Xem danh sách người dùng & Tra cứu & AD\_QĐ 4 & Theo dõi tài khoản nông dân. \\
+\hline
+7 & Chỉnh sửa trạng thái người dùng & Lưu trữ & AD\_QĐ 4 & Khóa hoặc mở khóa tài khoản. \\
+\hline
+\multicolumn{5}{|l|}{\cellcolor{notegreen}\textbf{IV. Quản lý phản hồi}} \\
+\hline
+8 & Xem phản hồi & Tra cứu & AD\_QĐ 5 & Hiển thị danh sách các phiếu phản hồi. \\
+\hline
+9 & Đánh giá phản hồi & Tra cứu & AD\_QĐ 5 & Admin xem xét ảnh và đối chiếu kết quả. \\
+\hline
+10 & Trả lời phản hồi & Lưu trữ & AD\_QĐ 5 & Nhập khung chat/tin nhắn phản hồi cho nông dân. \\
+\hline
+11 & Cập nhật trạng thái phản hồi & Lưu trữ & AD\_QĐ 5 & Thay đổi trạng thái phiếu (Đã xử lý / Bỏ qua). \\
+\hline
+\multicolumn{5}{|l|}{\cellcolor{notegreen}\textbf{V. Hệ thống}} \\
+\hline
+12 & Quản lý mô hình & Hệ thống & AD\_QĐ 6 & Cập nhật phiên bản trí tuệ nhân tạo. \\
+\hline
+13 & Thống kê \& Báo cáo & Tra cứu & AD\_QĐ 7 & Báo cáo hiệu suất và bản đồ dịch. \\
+\hline
+\end{longtable}
+
+\vspace{0.3cm}
+\noindent \textbf{3. Bảng Quy định / Công thức liên quan --- Quản trị viên}
+
+% ---- AD_QĐ 1 ----
+\vspace{0.2cm}
+\noindent\textbf{AD\_QĐ 1 --- Quy định Tài khoản Quản trị}
+\begin{itemize}
+    \item \textbf{Tự động khởi tạo (Auto-initialization):} Khi hệ thống khởi chạy lần đầu tiên, một tài khoản Admin mặc định sẽ được tự động sinh ra để thực hiện các thiết lập ban đầu.
+    \item \textbf{Bảo mật:} Hệ thống không hỗ trợ "Quên mật khẩu" cho Admin; mọi yêu cầu đặt lại mật khẩu phải thông qua can thiệp trực tiếp vào cơ sở dữ liệu để đảm bảo an toàn tối đa.
+    \item \textbf{Khóa tài khoản:} Nếu nhập sai mật khẩu 5 lần, tài khoản sẽ bị tạm khóa trong 30 phút.
+\end{itemize}
+
+% ---- AD_QĐ 2 ----
+\vspace{0.4cm}
+\noindent\textbf{AD\_QĐ 2 --- Quy định Quản lý bệnh}
+\begin{longtable}{|c|l|p{2.5cm}|c|p{5cm}|}
+\hline
+\rowcolor{headerblue}
+\textbf{STT} & \textbf{Tên thông tin} & \textbf{Định dạng nhập} & \textbf{Bắt buộc} & \textbf{Ràng buộc / Ghi chú} \\
+\hline
+\endhead
+1 & Tên bệnh & Văn bản & \textbf{Có} & Phải là duy nhất, dễ hiểu cho nông dân. \\
+\hline
+2 & Tên khoa học & Văn bản & \textbf{Có} & Tên tiếng Anh/Latinh để đối chiếu chuyên môn. \\
+\hline
+3 & Mô tả triệu chứng & Văn bản & \textbf{Có} & Đặc điểm nhận dạng trên lá/thân lúa. \\
+\hline
+\end{longtable}
+\noindent\textbf{Bảng quy định thao tác Quản lý bệnh:}
+\begin{longtable}{|c|c|p{4cm}|p{6cm}|}
+\hline
+\rowcolor{headerblue}
+\textbf{STT} & \textbf{Thao tác} & \textbf{Thông tin được tác động} & \textbf{Quy định ràng buộc} \\
+\hline
+1 & Thêm & Toàn bộ các trường & Tên bệnh không được trùng lặp. \\
+\hline
+2 & Sửa & Tên bệnh, Triệu chứng & Không được sửa mã định danh hệ thống. \\
+\hline
+3 & Xóa & Trạng thái hoạt động & Chỉ được xóa vĩnh viễn khi chưa có dữ liệu lịch sử. Ngược lại chỉ được chuyển sang trạng thái "Ẩn". \\
+\hline
+\end{longtable}
+
+% ---- AD_QĐ 3 ----
+\vspace{0.4cm}
+\noindent\textbf{AD\_QĐ 3 --- Quy định Quản lý tri thức dinh dưỡng}
+\begin{longtable}{|c|l|p{2.5cm}|c|p{5cm}|}
+\hline
+\rowcolor{headerblue}
+\textbf{STT} & \textbf{Tên thông tin} & \textbf{Định dạng nhập} & \textbf{Bắt buộc} & \textbf{Ràng buộc / Ghi chú} \\
+\hline
+\endhead
+1 & Áp dụng cho Bệnh & Danh sách chọn & \textbf{Có} & Phải chọn loại bệnh lúa tương ứng cần điều trị. \\
+\hline
+2 & Hoạt chất bổ sung & Văn bản & \textbf{Có} & Tên loại Vitamin hoặc khoáng chất cần thiết. \\
+\hline
+3 & Hướng dẫn sử dụng & Văn bản & \textbf{Có} & Mô tả liều lượng và cách bón/phun chi tiết. \\
+\hline
+\end{longtable}
+\noindent\textbf{Bảng quy định thao tác Quản lý dinh dưỡng:}
+\begin{longtable}{|c|c|p{4cm}|p{6cm}|}
+\hline
+\rowcolor{headerblue}
+\textbf{STT} & \textbf{Thao tác} & \textbf{Thông tin được tác động} & \textbf{Quy định ràng buộc} \\
+\hline
+1 & Thêm & Bệnh lúa, Hoạt chất, Hướng dẫn & Phải chọn đúng bệnh trong danh mục. \\
+\hline
+2 & Sửa & Hoạt chất, Hướng dẫn sử dụng & Dữ liệu cập nhật ngay lập tức vào kho tri thức. \\
+\hline
+3 & Xóa & Bản ghi dinh dưỡng & Cho phép xóa và cập nhật lại kho kiến thức hệ thống. \\
+\hline
+\end{longtable}
+
+% ---- AD_QĐ 4 ----
+\vspace{0.4cm}
+\noindent\textbf{AD\_QĐ 4 --- Quy định Quản lý Người dùng}
+\begin{longtable}{|c|l|p{2.5cm}|c|p{5cm}|}
+\hline
+\rowcolor{headerblue}
+\textbf{STT} & \textbf{Tên thông tin} & \textbf{Định dạng nhập} & \textbf{Quyền Admin} & \textbf{Ghi chú} \\
+\hline
+\endhead
+411: 1 & Tên đăng nhập / Email & Văn bản & \textbf{Chỉ xem} & Thông tin định danh cốt lõi, Admin tuyệt đối không được can thiệp. \\
+412: \hline
+413: 2 & Trạng thái hoạt động & Danh sách chọn & \textbf{Được sửa} & Admin có quyền Khóa hoặc Mở khóa tài khoản tùy theo vi phạm. \\
+\hline
+3 & Lịch sử hoạt động & Danh sách & \textbf{Chỉ xem} & Xem số lượt chẩn đoán và khiếu nại của người dùng. \\
+\hline
+\end{longtable}
+
+% ---- AD_QĐ 5 ----
+\vspace{0.4cm}
+\noindent\textbf{AD\_QĐ 5 --- Quy định Quản lý phản hồi}
+\begin{itemize}
+    \item \textbf{Bước 1 - Xem phản hồi:} Hiển thị danh sách phiếu chưa xử lý, ưu tiên phiếu gửi sớm nhất.
+    \item \textbf{Bước 2 - Đánh giá:} Màn hình hiển thị song song Ảnh gốc - Kết quả AI - Kết quả nông dân báo cáo để chuyên gia so sánh.
+    \item \textbf{Bước 3 - Trả lời:} Admin nhập lời nhắn giải thích hoặc ghi nhận đóng góp.
+    \item \textbf{Bước 4 - Cập nhật trạng thái:} Admin chốt kết quả (Chấp nhận AI sai / Từ chối AI đúng) để đóng phiếu.
+\end{itemize}
+\noindent\textbf{Quy tắc xử lý:} Nếu phiếu được "Chấp nhận", hệ thống tự động lưu hình ảnh vào tập dữ liệu dùng để nâng cấp mô hình AI sau này.
+
+% ---- AD_QĐ 6 ----
+\vspace{0.4cm}
+\noindent\textbf{AD\_QĐ 6 --- Quy định Quản lý mô hình}
+\begin{longtable}{|c|l|p{2.5cm}|c|p{5cm}|}
+\hline
+\rowcolor{headerblue}
+\textbf{STT} & \textbf{Tên thông tin} & \textbf{Định dạng nhập} & \textbf{Bắt buộc} & \textbf{Ràng buộc / Ghi chú} \\
+\hline
+\endhead
+1 & Tệp mô hình & Tệp mô hình & \textbf{Có} & Tệp chứa bộ não nhân tạo đã được huấn luyện mới. \\
+\hline
+2 & Tên phiên bản & Văn bản & \textbf{Có} & Tên mô tả đợt nâng cấp. \\
+\hline
+\end{longtable}
+\noindent\textbf{Quy tắc xử lý:} Admin sử dụng công tắc "Kích hoạt" để áp dụng mô hình mới cho toàn hệ thống ngay lập tức.
+
+% ---- AD_QĐ 7 ----
+\vspace{0.4cm}
+\noindent\textbf{AD\_QĐ 7 --- Quy định Thống kê \& Báo cáo}
+\begin{itemize}
+    \item \textbf{Báo cáo dịch bệnh:} Hiển thị bản đồ nhiệt (Heatmap) về tình hình dịch bệnh theo tọa độ GPS của các ca chẩn đoán.
+    \item \textbf{Báo cáo hiệu suất AI:} Thống kê tỷ lệ chẩn đoán đúng/sai dựa trên kết quả giải quyết phản hồi.
+\end{itemize}
+
+% ---- AD_QĐ 5 ----
+
+\vspace{0.5cm}
+\noindent \textbf{3. Các Biểu mẫu tiêu biểu (Quản trị viên)}
+
+\noindent \textbf{AD\_BM 1: PHIẾU XỬ LÝ PHẢN HỒI KHIẾU NẠI} \\
+Mã phản hồi: \dotfill Người dùng gửi: \dotfill \\
+\textbf{- Hình ảnh kèm theo:} [Hiển thị ảnh lá lúa] \\
+\textbf{- AI chẩn đoán:} \dotfill (Độ tin cậy: \dots \%) \\
+\textbf{- Nông dân báo cáo:} \dotfill \\
+\textbf{- Ghi chú của nông dân:} \dotfill \\
+\vspace{0.2cm}
+\textbf{ĐÁNH GIÁ CỦA CHUYÊN GIA / QUẢN TRỊ VIÊN:} \\
+Trạng thái: $\square$ Chấp nhận (AI sai) \quad $\square$ Từ chối (AI đúng) \\
+Lời nhắn gửi lại nông dân: \dotfill \\
+\dotfill
+
+\vspace{0.5cm}
+\noindent \textbf{AD\_BM 2: BÁO CÁO HIỆU SUẤT TRÍ TUỆ NHÂN TẠO} \\
+Năm: \dotfill Tháng: \dotfill (Mặc định: Tháng hiện tại)
+
+\begin{longtable}{|c|l|p{4cm}|c|c|}
+\hline
+\rowcolor{headerblue}
+  \textbf{STT}&\textbf{Mã bệnh}& \textbf{Tên bệnh lúa} & \textbf{Số lượt nhận diện}& \textbf{Số lượt AI đoán sai} \\
+\hline
+   1 && & & \\
+\hline
+   2 && & & \\
+\hline
+\end{longtable}
+\textit{Ngày lập báo cáo: \dots\dots\dots\dots Người lập: \dots\dots\dots\dots}
+
+\hrulefill
+
+\subsubsection*{3.2 Xác định yêu cầu chức năng hệ thống và yêu cầu chất lượng}
+
+\textbf{Bảng yêu cầu chức năng hệ thống:}
+\begin{longtable}{|c|p{4cm}|p{9cm}|c|}
+\hline
+\rowcolor{headerblue}
+\textbf{STT} & \textbf{Nội dung} & \textbf{Mô tả chi tiết} & \textbf{Ghi chú} \\
+\hline
+\endhead
+1 & Tích hợp Thời tiết & Truy xuất dữ liệu thời tiết dựa trên tọa độ thực tế của nông dân để cung cấp bối cảnh môi trường. & \\
+\hline
+2 & Quản lý tri thức & Hệ thống đồng bộ các hướng dẫn dinh dưỡng để AI có thể tư vấn linh hoạt. & \\
+\hline
+3 & Bảo mật dữ liệu & Mật khẩu được bảo mật an toàn. Toàn bộ ảnh và dữ liệu thực tế được lưu trữ phục vụ tái huấn luyện. & \\
+\hline
+4 & Gửi mã xác thực & Tự động gửi mã xác thực qua email cho các luồng xác minh tài khoản. & \\
+\hline
+\end{longtable}
+
+\textbf{Bảng yêu cầu về chất lượng hệ thống:}
+\begin{longtable}{|c|p{3.5cm}|p{2cm}|p{6cm}|c|}
+\hline
+\rowcolor{headerblue}
+\textbf{STT} & \textbf{Nội dung} & \textbf{Tiêu chuẩn} & \textbf{Mô tả chi tiết} & \textbf{Ghi chú} \\
+\hline
+\endhead
+1 & Cập nhật mô hình & Tiến hóa & Có thể thay thế mô hình nhận diện mới mà không làm gián đoạn người dùng. & \\
+\hline
+2 & Tính tiện dụng & Tiện dụng & Giao diện tối ưu cho thiết bị di động, thông báo rõ ràng bằng tiếng Việt. & \\
+\hline
+3 & Tốc độ xử lý & Hiệu quả & Phản hồi kết quả chẩn đoán trong vòng 5--7 giây. & \\
+\hline
+4 & Độ tương thích & Tương thích & Hoạt động ổn định trên các trình duyệt phổ biến của điện thoại thông minh. & \\
+\hline
+5 & Tính kịp thời & Hiệu quả & Mã xác thực gửi đến người dùng trong vòng 30 giây. & \\
+\hline
+\end{longtable}
+
+\end{document}

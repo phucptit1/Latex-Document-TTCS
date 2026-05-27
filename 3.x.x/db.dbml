@@ -1,0 +1,192 @@
+// ============================================================
+// Rice Disease Detection System - Database Schema
+// Version: 3.4.0 (Academic Standardized)
+// Engine: PostgreSQL (Standard SQL compatible)
+// ============================================================
+
+Project rice_disease_detection {
+  database_type: 'PostgreSQL'
+  Note: '''
+    Hệ thống nhận diện bệnh trên cây lúa dựa trên thuật toán học sâu CNN.
+    - Sử dụng pgvector cho tìm kiếm ngữ nghĩa tri thức dinh dưỡng (RAG).
+    - Redis (lưu trữ ngoài CSDL): 
+      + login:fail:{username} (15-30p TTL)
+      + otp:{email} (10p TTL)
+      + verify:{token} (24h TTL)
+  '''
+}
+
+// ------------------------------------------------------------
+// 1. Bảng người dùng (Authentication)
+// ------------------------------------------------------------
+Table users {
+  id UUID [pk]
+  username VARCHAR(50) [unique, not null]
+  email VARCHAR(255) [unique, not null]
+  password VARCHAR [note: 'Nullable for social logins']
+  role enum('user', 'admin') [not null, default: 'user']
+  status enum('active', 'inactive', 'suspended') [not null, default: 'inactive']
+  metadata JSONB [note: 'Cấu hình hoặc thông tin bổ sung']
+  created_at TIMESTAMP [default: `now()`]
+  updated_at TIMESTAMP
+  
+  Indexes {
+    username
+    email
+  }
+}
+
+// ------------------------------------------------------------
+// 2. Bảng hồ sơ cá nhân (User Details)
+// ------------------------------------------------------------
+Table user_profiles {
+  id UUID [pk]
+  user_id UUID [unique, not null, ref: - users.id, note: 'Quan hệ 1-1']
+  first_name VARCHAR
+  last_name VARCHAR
+  created_at TIMESTAMP [default: `now()`]
+  updated_at TIMESTAMP
+}
+
+// ------------------------------------------------------------
+// 3. Bảng tài khoản xã hội (Social Logins)
+// ------------------------------------------------------------
+Table user_social_accounts {
+  id UUID [pk]
+  user_id UUID [not null, ref: > users.id, note: 'Quan hệ 1-N']
+  provider VARCHAR [not null]
+  provider_user_id VARCHAR [unique, not null]
+  created_at TIMESTAMP [default: `now()`]
+  updated_at TIMESTAMP
+  
+  Indexes {
+    user_id
+    provider
+    provider_user_id
+    (user_id, provider) [unique]
+  }
+}
+
+// ------------------------------------------------------------
+// 4. Bảng bệnh lúa (Master Data)
+// ------------------------------------------------------------
+Table diseases {
+  id UUID [pk]
+  name NVARCHAR(100) [unique, not null]
+  scientific_name VARCHAR(150) [unique]
+  signs TEXT [note: 'Dấu hiệu bệnh']
+  status enum('visible', 'hidden') [not null, default: 'visible']
+  created_at TIMESTAMP [default: `now()`]
+  updated_at TIMESTAMP
+}
+
+// ------------------------------------------------------------
+// 5. Bảng tri thức dinh dưỡng (Vector Database)
+// ------------------------------------------------------------
+Table nutritions {
+  id UUID [pk]
+  content TEXT [not null]
+  source NVARCHAR(100)
+  embedding "VECTOR(1536)" [note: 'Vector ngữ nghĩa (pgvector)']
+  chunk_metadata JSONB [note: 'Thông tin bổ sung, hỗ trợ GIN Index']
+  created_at TIMESTAMP [default: `now()`]
+  updated_at TIMESTAMP
+  
+  Note: 'Kho tri thức phục vụ tìm kiếm ngữ nghĩa (RAG)'
+}
+
+// ------------------------------------------------------------
+// 6. Bảng lượt chẩn đoán (Transactions)
+// ------------------------------------------------------------
+Table diagnoses {
+  id UUID [pk]
+  user_id UUID [not null, ref: > users.id]
+  original_image_url VARCHAR(512) [not null]
+  result_image_url VARCHAR(512)
+  gps_lat DECIMAL(10,8) [note: 'Tọa độ gọi API thời tiết']
+  gps_lng DECIMAL(11,8)
+  province TEXT [note: 'Tỉnh/thành phố']
+  weather_data JSONB [note: 'Dữ liệu thời tiết từ API']
+  env_description TEXT
+  model_version_id UUID [not null, ref: > ai_models.id]
+  created_at TIMESTAMP [default: `now()`]
+  updated_at TIMESTAMP
+  
+  Indexes {
+    user_id
+    model_version_id
+  }
+}
+
+// ------------------------------------------------------------
+// 7. Bảng kết quả chẩn đoán (1-N)
+// ------------------------------------------------------------
+Table diagnosis_results {
+  id UUID [pk]
+  diagnosis_id UUID [not null, ref: > diagnoses.id]
+  disease_id UUID [not null, ref: > diseases.id]
+  confidence DECIMAL(5,2) [note: 'Độ tin cậy 0-100.00%']
+  mask_polygon JSONB [note: 'Tọa độ polygon dạng JSONB']
+  color VARCHAR(20) [note: 'Màu sắc bounding box/mask']
+  advisory JSONB [note: 'Thông tin khuyến nghị/cách xử lý']
+  created_at TIMESTAMP [default: `now()`]
+  updated_at TIMESTAMP
+  
+  Indexes {
+    diagnosis_id
+    disease_id
+  }
+}
+
+// ------------------------------------------------------------
+// 8. Bảng phản hồi (Feedbacks)
+// ------------------------------------------------------------
+Table feedbacks {
+  id UUID [pk]
+  diagnosis_id UUID [not null, ref: > diagnoses.id]
+  user_id UUID [not null, ref: > users.id]
+  user_message TEXT [note: 'Lời nhắn nông dân']
+  status enum('pending', 'accepted', 'rejected') [not null, default: 'pending']
+  admin_id UUID [ref: > users.id, note: 'Admin xử lý (nullable)']
+  admin_response TEXT [note: 'Lời nhắn admin gửi lại']
+  processed_at TIMESTAMP
+  created_at TIMESTAMP [default: `now()`]
+  updated_at TIMESTAMP
+  
+  Indexes {
+    diagnosis_id
+    user_id
+    status
+  }
+}
+
+// ------------------------------------------------------------
+// 9. Bảng trung gian: Bệnh thực tế từ phản hồi (Junction)
+// ------------------------------------------------------------
+Table feedback_actual_diseases {
+  feedback_id UUID [not null, ref: > feedbacks.id]
+  disease_id UUID [not null, ref: > diseases.id]
+  created_at TIMESTAMP [default: `now()`]
+  updated_at TIMESTAMP
+  
+  Indexes {
+    (feedback_id, disease_id) [pk]
+  }
+  
+  Note: 'Bảng trung gian lưu vết bệnh thực tế do nông dân báo cáo'
+}
+
+// ------------------------------------------------------------
+// 10. Bảng mô hình AI (MLOps Tracking)
+// ------------------------------------------------------------
+Table ai_models {
+  id UUID [pk]
+  version_name NVARCHAR(50) [not null]
+  file_path VARCHAR(512) [not null]
+  release_notes TEXT
+  is_active BOOLEAN [not null, default: false]
+  uploaded_by UUID [not null, ref: > users.id]
+  created_at TIMESTAMP [default: `now()`]
+  updated_at TIMESTAMP
+}
+
