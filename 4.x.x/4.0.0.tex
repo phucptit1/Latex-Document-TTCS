@@ -634,24 +634,34 @@ Hệ thống được xây dựng để nhận diện 5 loại bệnh phổ bi�
 % ---- QĐ-ND-03e ----
 \vspace{0.3cm}
 \noindent\textbf{QĐ-ND-03e --- Quy định Xem kết quả chẩn đoán}
-
+ 
 \begin{longtable}{|
-        >{\raggedright\arraybackslash}p{2.8cm}|
-        >{\raggedright\arraybackslash}p{12cm}|}
-    \hline
-    \rowcolor{headerblue}
-    \textbf{Chức năng}             & \textbf{Quy trình \& Ràng buộc}                                                                                                                   \\
-    \hline
-    \endhead
-    \textbf{Xem kết quả chẩn đoán} &
-    Sau khi gửi ảnh, hệ thống tự động xử lý và hiển thị kết quả gồm:
-    \begin{itemize}[leftmargin=*,topsep=2pt,itemsep=1pt]
-        \item \textbf{Tên bệnh:} tên bệnh được chẩn đoán.
-        \item \textbf{Vùng bệnh:} khoanh vùng trực tiếp trên ảnh gốc tại vị trí AI phát hiện.
-        \item \textbf{Độ tin cậy:} phần trăm độ chính xác của kết quả, được làm tròn.
-        \item \textbf{Gợi ý dinh dưỡng:} danh sách hoạt chất và hướng dẫn sử dụng tương ứng với bệnh được chẩn đoán, có bổ sung ngữ cảnh từ mô tả triệu chứng nếu nông dân đã cung cấp.
-    \end{itemize} \\
-    \hline
+    >{\raggedright\arraybackslash}p{2.8cm}|
+    >{\raggedright\arraybackslash}p{12cm}|}
+\hline
+\rowcolor{headerblue}
+\textbf{Chức năng} & \textbf{Quy trình \& Ràng buộc} \\
+\hline
+\endhead
+\textbf{Xem kết quả chẩn đoán} &
+Sau khi gửi ảnh, hệ thống tự động xử lý và trả về kết quả dựa trên tình trạng nhận diện của mô hình AI:
+
+\vspace{2pt}
+\textbf{Trường hợp 1: Phát hiện có bệnh}
+\begin{itemize}[leftmargin=*,topsep=2pt,itemsep=1pt]
+    \item \textbf{Tên bệnh:} tên bệnh được hệ thống chẩn đoán.
+    \item \textbf{Vùng bệnh:} khoanh vùng (bounding box) trực tiếp trên ảnh gốc tại vị trí AI phát hiện ra triệu chứng.
+    \item \textbf{Độ tin cậy:} phần trăm độ chính xác của kết quả dự đoán, được làm tròn.
+    \item \textbf{Gợi ý dinh dưỡng \& điều trị:} danh sách hoạt chất và hướng dẫn sử dụng tương ứng, có bổ sung ngữ cảnh từ mô tả triệu chứng nếu người dùng đã cung cấp.
+\end{itemize}
+
+\vspace{2pt}
+\textbf{Trường hợp 2: Không phát hiện bệnh}
+\begin{itemize}[leftmargin=*,topsep=2pt,itemsep=1pt]
+    \item Hệ thống hiển thị thông báo: \textit{"Không tìm thấy dấu hiệu bệnh trên ảnh"}.
+    \item Ẩn hoàn toàn các vùng thông tin về độ tin cậy và gợi ý dinh dưỡng nhằm tránh việc cung cấp sai giải pháp, dẫn đến lạm dụng thuốc bảo vệ thực vật.
+\end{itemize} \\
+\hline
 \end{longtable}
 
 % ---- QĐ-ND-04 ----
