@@ -976,52 +976,71 @@ Chi tiết yêu cầu chức năng nghiệp vụ của từng nhóm người dù
         >{\raggedright\arraybackslash}p{2.4cm}|
         >{\raggedright\arraybackslash}p{2.6cm}|
         >{\raggedright\arraybackslash}p{2.6cm}|}
+
+    \caption{Bảng yêu cầu chức năng nghiệp vụ --- Quản trị viên} \label{tab:ad-ycnv} \\
     \hline
     \rowcolor{headerblue}
-    \textbf{STT} & \textbf{Công việc}                & \textbf{Loại công việc} & \textbf{Quy định/CT liên quan} & \textbf{Biểu mẫu liên quan} & \textbf{Ghi chú} \\
+    \textbf{STT} & \textbf{Công việc}               & \textbf{Loại công việc} & \textbf{Quy định/CT liên quan} & \textbf{Biểu mẫu liên quan} & \textbf{Ghi chú} \\
+    \hline
+    \endfirsthead
+
+    \multicolumn{6}{c}%
+    {{\tablename\ \thetable{} -- Tiếp theo trang trước}} \\
+    \hline
+    \rowcolor{headerblue}
+    \textbf{STT} & \textbf{Công việc}               & \textbf{Loại công việc} & \textbf{Quy định/CT liên quan} & \textbf{Biểu mẫu liên quan} & \textbf{Ghi chú} \\
     \hline
     \endhead
-    \multicolumn{6}{|l|}{\cellcolor{notegreen}\textbf{I. Tài khoản quản trị}}                                                                                    \\
+
+    \hline \multicolumn{6}{|r|}{{Tiếp tục ở trang sau...}} \\ \hline
+    \endfoot
+
     \hline
-    1            & Đăng nhập hệ thống quản trị       & Tra cứu                 & QĐ-AD-01                       &                             &                  \\
+    \endlastfoot
+
+    \multicolumn{6}{|l|}{\cellcolor{notegreen}\textbf{I. Tài khoản quản trị}} \\
     \hline
-    2            & Đổi mật khẩu quản trị             & Lưu trữ                 & QĐ-AD-01                       &                             &                  \\
+    1  & Đăng nhập hệ thống quản trị  & Tra cứu  & QĐ-AD-01.1 &          & \\
     \hline
-    \multicolumn{6}{|l|}{\cellcolor{notegreen}\textbf{II. Quản lý bệnh lúa}}                                                                                     \\
+    2  & Đổi mật khẩu quản trị        & Lưu trữ  & QĐ-AD-01.2 &          & \\
     \hline
-    3            & Xem danh sách bệnh lúa            & Tra cứu                 & QĐ-AD-02                       &                             &                  \\
+    \multicolumn{6}{|l|}{\cellcolor{notegreen}\textbf{II. Quản lý bệnh lúa}} \\
     \hline
-    4            & Thêm bệnh lúa                     & Lưu trữ                 & QĐ-AD-02                       & AD\_BM 1                    &                  \\
+    3  & Xem danh sách bệnh lúa       & Tra cứu  & QĐ-AD-02.1 &          & \\
     \hline
-    5            & Sửa bệnh lúa                      & Lưu trữ                 & QĐ-AD-02                       & AD\_BM 1                    &                  \\
+    4  & Thêm bệnh lúa                & Lưu trữ  & QĐ-AD-02.2 & AD\_BM 1 & \\
     \hline
-    6            & Ẩn / Xóa bệnh lúa                 & Lưu trữ                 & QĐ-AD-02                       &                             &                  \\
+    5  & Sửa bệnh lúa                 & Lưu trữ  & QĐ-AD-02.3 & AD\_BM 1 & \\
     \hline
-    \multicolumn{6}{|l|}{\cellcolor{notegreen}\textbf{III. Quản lý tri thức dinh dưỡng}}                                                                         \\
+    6  & Ẩn / Xóa bệnh lúa            & Lưu trữ  & QĐ-AD-02.4 &          & \\
     \hline
-    7            & Xem danh sách tri thức dinh dưỡng & Tra cứu                 & QĐ-AD-03                       &                             &                  \\
+    \multicolumn{6}{|l|}{\cellcolor{notegreen}\textbf{III. Quản lý tri thức dinh dưỡng}} \\
     \hline
-    8            & Nạp tài liệu dinh dưỡng mới       & Lưu trữ                 & QĐ-AD-03                       & AD\_BM 2                    &                  \\
+    7  & Xem danh sách tri thức       & Tra cứu  & QĐ-AD-03.1 &          & \\
     \hline
-    9            & Xóa phân mảnh tri thức            & Lưu trữ                 & QĐ-AD-03                       &                             &                  \\
+    8  & Nạp tài liệu dinh dưỡng mới  & Lưu trữ  & QĐ-AD-03.2 & AD\_BM 2 & \\
     \hline
-    \multicolumn{6}{|l|}{\cellcolor{notegreen}\textbf{IV. Quản lý người dùng}}                                                                                   \\
+    9  & Xóa phân mảnh tri thức       & Lưu trữ  & QĐ-AD-03.3 &          & \\
     \hline
-    10           & Xem danh sách người dùng          & Tra cứu                 & QĐ-AD-04                       &                             &                  \\
+    \multicolumn{6}{|l|}{\cellcolor{notegreen}\textbf{IV. Quản lý người dùng}} \\
     \hline
-    11           & Khóa / Mở khóa tài khoản          & Lưu trữ                 & QĐ-AD-04                       &                             &                  \\
+    10 & Xem danh sách người dùng     & Tra cứu  & QĐ-AD-04.1 &          & \\
     \hline
-    \multicolumn{6}{|l|}{\cellcolor{notegreen}\textbf{V. Quản lý phản hồi}}                                                                                      \\
+    11 & Khóa / Mở khóa tài khoản     & Lưu trữ  & QĐ-AD-04.2 &          & \\
     \hline
-    12           & Xem danh sách phản hồi            & Tra cứu                 & QĐ-AD-05                       &                             &                  \\
+    \multicolumn{6}{|l|}{\cellcolor{notegreen}\textbf{V. Quản lý phản hồi}} \\
     \hline
-    13           & Xử lý phản hồi                    & Lưu trữ                 & QĐ-AD-05                       & AD\_BM 3                    &                  \\
+    12 & Xem danh sách phản hồi       & Tra cứu  & QĐ-AD-05.1 &          & \\
     \hline
-    \multicolumn{6}{|l|}{\cellcolor{notegreen}\textbf{VI. Hệ thống}}                                                                                             \\
+    13 & Xử lý phản hồi               & Lưu trữ  & QĐ-AD-05.2 & AD\_BM 3 & \\
     \hline
-    14           & Cập nhật mô hình AI               & Lưu trữ                 & QĐ-AD-06                       &                             &                  \\
+    \multicolumn{6}{|l|}{\cellcolor{notegreen}\textbf{VI. Hệ thống}} \\
     \hline
-    15           & Xem thống kê \& báo cáo           & Tra cứu, Kết xuất       & QĐ-AD-06                       & AD\_BM 4                    &                  \\
+    14 & Cập nhật mô hình AI          & Lưu trữ          & QĐ-AD-06.1 &          & \\
+    \hline
+    15 & Cấu hình hệ thống động       & Lưu trữ          & QĐ-AD-06.2 & AD\_BM 4 & \\
+    \hline
+    16 & Xem thống kê \& báo cáo      & Tra cứu, Kết xuất & QĐ-AD-06.2 & AD\_BM 4 & \\
     \hline
 \end{longtable}
 
@@ -1031,26 +1050,55 @@ Chi tiết yêu cầu chức năng nghiệp vụ của từng nhóm người dù
 
 \begin{longtable}{|
         c|
-        >{\raggedright\arraybackslash}p{1.8cm}|
+        >{\raggedright\arraybackslash}p{2.4cm}|
         >{\raggedright\arraybackslash}p{3.4cm}|
-        >{\raggedright\arraybackslash}p{6.4cm}|
+        >{\raggedright\arraybackslash}p{6.0cm}|
         >{\raggedright\arraybackslash}p{1.4cm}|}
+
     \hline
     \rowcolor{headerblue}
-    \textbf{STT} & \textbf{Mã số} & \textbf{Tên Quy định}                & \textbf{Mô tả chi tiết}                                                                                                                         & \textbf{Ghi chú} \\
+    \textbf{STT} & \textbf{Mã số} & \textbf{Tên Quy định} & \textbf{Mô tả chi tiết} & \textbf{Ghi chú} \\
+    \hline
+    \endfirsthead
+    \multicolumn{5}{c}{{\tablename\ -- Tiếp theo trang trước}} \\
+    \hline
+    \rowcolor{headerblue}
+    \textbf{STT} & \textbf{Mã số} & \textbf{Tên Quy định} & \textbf{Mô tả chi tiết} & \textbf{Ghi chú} \\
     \hline
     \endhead
-    1            & QĐ-AD-01       & Quy định Tài khoản quản trị          & Bao gồm quy trình đăng nhập (kiểm tra tên đăng nhập + mật khẩu, khóa sau 5 lần sai trong 30 phút) và đổi mật khẩu.                              &                  \\
+    \hline \multicolumn{5}{|r|}{{Tiếp tục ở trang sau...}} \\ \hline
+    \endfoot
     \hline
-    2            & QĐ-AD-02       & Quy định Quản lý bệnh lúa            & Bao gồm quy trình thêm, sửa, ẩn/xóa bệnh lúa. Upload ảnh riêng trước khi lưu. Ràng buộc severity, imageUrl, treatment. Chỉ ADMIN được thay đổi. &                  \\
+    \endlastfoot
+    1  & QĐ-AD-01.1 & Đăng nhập hệ thống quản trị  & Kiểm tra cặp tên đăng nhập + mật khẩu. Khóa tài khoản sau 5 lần sai trong 30 phút. &  \\
     \hline
-    3            & QĐ-AD-03       & Quy định Quản lý tri thức dinh dưỡng & Bao gồm quy trình nạp tài liệu 4 bước và xóa theo chunk ID. Ràng buộc vector 3072 chiều, bảo toàn phân số, giới hạn RAG context window.         &                  \\
+    2  & QĐ-AD-01.2 & Đổi mật khẩu quản trị        & Xác thực mật khẩu hiện tại, nhập mật khẩu mới đáp ứng độ mạnh và xác nhận lại. &  \\
     \hline
-    4            & QĐ-AD-04       & Quy định Quản lý người dùng          & Bao gồm quy trình xem danh sách và khóa/mở khóa tài khoản. Quản trị viên không được chỉnh sửa thông tin cá nhân của người dùng.                 &                  \\
+    3  & QĐ-AD-02.1 & Xem danh sách bệnh lúa       & Hiển thị toàn bộ danh sách bệnh lúa kể cả bệnh đang ẩn. Hỗ trợ lọc và tìm kiếm theo tên bệnh. &  \\
     \hline
-    5            & QĐ-AD-05       & Quy định Xử lý phản hồi              & Bao gồm quy trình xem danh sách phiếu phản hồi, xem xét kết quả và chốt trạng thái xử lý.                                                       &                  \\
+    4  & QĐ-AD-02.2 & Thêm bệnh lúa                & Upload ảnh lên Cloudinary trước, sau đó điền thông tin bệnh. Ràng buộc tên duy nhất, severity, imageUrl, treatment. Chỉ ADMIN được thực hiện. &  \\
     \hline
-    6            & QĐ-AD-06       & Quy định Hệ thống                    & Bao gồm quy trình cập nhật mô hình AI và xem thống kê/báo cáo hiệu suất.                                                                        &                  \\
+    5  & QĐ-AD-02.3 & Sửa bệnh lúa                 & Upload ảnh mới nếu cần, chỉnh sửa toàn bộ thông tin bệnh. Không được thay đổi mã định danh hệ thống. Chỉ ADMIN được thực hiện. &  \\
+    \hline
+    6  & QĐ-AD-02.4 & Ẩn / Xóa bệnh lúa            & Xóa vĩnh viễn nếu chưa có lịch sử chẩn đoán. Chuyển sang trạng thái ``Ẩn'' nếu đã có lịch sử. Chỉ ADMIN được thực hiện. &  \\
+    \hline
+    7  & QĐ-AD-03.1 & Xem danh sách tri thức       & Hiển thị danh sách các phân mảnh tri thức (chunk) trong kho, bao gồm nội dung, nguồn và siêu dữ liệu. &  \\
+    \hline
+    8  & QĐ-AD-03.2 & Nạp tài liệu dinh dưỡng mới  & Quy trình 4 bước: đọc file, lọc rác, băm nhỏ ngữ nghĩa, vector hóa 3072 chiều và lưu trữ. Chỉ ADMIN được thực hiện. &  \\
+    \hline
+    9  & QĐ-AD-03.3 & Xóa phân mảnh tri thức       & Xóa từng chunk theo UUID, giải phóng không gian lưu trữ vector. Chỉ ADMIN được thực hiện. &  \\
+    \hline
+    10 & QĐ-AD-04.1 & Xem danh sách người dùng     & Hiển thị danh sách kèm chỉ số thống kê động: tên đăng nhập, email, số lượt chẩn đoán, phản hồi, vai trò và trạng thái. &  \\
+    \hline
+    11 & QĐ-AD-04.2 & Khóa / Mở khóa tài khoản     & Thực hiện Ban/Unban kèm lý do và thời gian phạt. Không được chỉnh sửa thông tin cá nhân của người dùng. &  \\
+    \hline
+    12 & QĐ-AD-05.1 & Xem danh sách phản hồi       & Hiển thị danh sách phiếu phản hồi chưa xử lý, ưu tiên phiếu gửi sớm nhất. &  \\
+    \hline
+    13 & QĐ-AD-05.2 & Xử lý phản hồi               & Xem xét song song ảnh gốc, kết quả AI và báo cáo nông dân. Nhập lời nhắn và chốt trạng thái Chấp nhận/Từ chối. &  \\
+    \hline
+    14 & QĐ-AD-06.1 & Cập nhật mô hình AI          & Quy trình MLOps 5 bước: tải lên R2, caching cục bộ, bảo vệ RAM, khóa race condition và hot-reload không gián đoạn. &  \\
+    \hline
+    15 & QĐ-AD-06.2 & Cấu hình hệ thống \& Báo cáo & Thay đổi tham số hệ thống động đồng bộ Redis. Xem bản đồ nhiệt dịch bệnh và báo cáo hiệu suất mô hình AI. &  \\
     \hline
 \end{longtable}
 
@@ -1063,23 +1111,34 @@ Chi tiết yêu cầu chức năng nghiệp vụ của từng nhóm người dù
 \noindent\textbf{QĐ-AD-01 --- Quy định Tài khoản quản trị}
 
 \begin{longtable}{|
+        >{\raggedright\arraybackslash}p{2.2cm}|
         >{\raggedright\arraybackslash}p{2.8cm}|
-        >{\raggedright\arraybackslash}p{12cm}|}
+        >{\raggedright\arraybackslash}p{9.8cm}|}
     \hline
     \rowcolor{headerblue}
-    \textbf{Chức năng}                      & \textbf{Quy trình \& Ràng buộc}                                                      \\
+    \textbf{Mã quy định} & \textbf{Chức năng} & \textbf{Quy trình \& Ràng buộc} \\
+    \hline
+    \endfirsthead
+    \multicolumn{3}{c}{{\tablename\ -- Tiếp theo trang trước}} \\
+    \hline
+    \rowcolor{headerblue}
+    \textbf{Mã quy định} & \textbf{Chức năng} & \textbf{Quy trình \& Ràng buộc} \\
     \hline
     \endhead
-    \textbf{a) Đăng nhập hệ thống quản trị} &
+    \hline \multicolumn{3}{|r|}{{Tiếp tục ở trang sau...}} \\ \hline
+    \endfoot
+    \hline
+    \endlastfoot
+    \textbf{QĐ-AD-01.1} & \textbf{Đăng nhập hệ thống quản trị} &
     Quản trị viên phải nhập đầy đủ 2 thông tin sau (không được để trống):
     \begin{itemize}[leftmargin=*,topsep=2pt,itemsep=1pt]
         \item \textbf{Tên đăng nhập:} phải tồn tại trong hệ thống.
         \item \textbf{Mật khẩu:} phải khớp với tài khoản tương ứng.
     \end{itemize}
     \textbf{Cơ chế bảo mật:} Nếu đăng nhập sai, hệ thống chỉ hiển thị thông báo chung ``Tên đăng nhập hoặc mật khẩu không chính xác'' mà không chỉ rõ trường nào sai. Nhập sai 5 lần liên tiếp thì khóa tài khoản 30 phút. \newline
-    \textbf{Quy tắc xử lý:} Đăng nhập thành công thì chuyển vào trang quản trị.                                                    \\
+    \textbf{Quy tắc xử lý:} Đăng nhập thành công thì chuyển vào trang quản trị. \\
     \hline
-    \textbf{b) Đổi mật khẩu}                &
+    \textbf{QĐ-AD-01.2} & \textbf{Đổi mật khẩu quản trị} &
     Quản trị viên thực hiện theo các bước sau:
     \begin{enumerate}[leftmargin=*,topsep=2pt,itemsep=1pt]
         \item Nhập \textbf{mật khẩu hiện tại} để hệ thống xác thực.
@@ -1095,17 +1154,28 @@ Chi tiết yêu cầu chức năng nghiệp vụ của từng nhóm người dù
 \noindent\textbf{QĐ-AD-02 --- Quy định Quản lý bệnh lúa}
 
 \begin{longtable}{|
+        >{\raggedright\arraybackslash}p{2.2cm}|
         >{\raggedright\arraybackslash}p{2.8cm}|
-        >{\raggedright\arraybackslash}p{12cm}|}
+        >{\raggedright\arraybackslash}p{9.8cm}|}
     \hline
     \rowcolor{headerblue}
-    \textbf{Chức năng}                 & \textbf{Quy trình \& Ràng buộc}                                                                                    \\
+    \textbf{Mã quy định} & \textbf{Chức năng} & \textbf{Quy trình \& Ràng buộc} \\
+    \hline
+    \endfirsthead
+    \multicolumn{3}{c}{{\tablename\ -- Tiếp theo trang trước}} \\
+    \hline
+    \rowcolor{headerblue}
+    \textbf{Mã quy định} & \textbf{Chức năng} & \textbf{Quy trình \& Ràng buộc} \\
     \hline
     \endhead
-    \textbf{a) Xem danh sách bệnh lúa} &
+    \hline \multicolumn{3}{|r|}{{Tiếp tục ở trang sau...}} \\ \hline
+    \endfoot
+    \hline
+    \endlastfoot
+    \textbf{QĐ-AD-02.1} & \textbf{Xem danh sách bệnh lúa} &
     Hệ thống hiển thị toàn bộ danh sách bệnh lúa hiện có, bao gồm cả các bệnh đang ở trạng thái ``Ẩn''. Quản trị viên có thể lọc và tìm kiếm theo tên bệnh. \\
     \hline
-    \textbf{b) Thêm bệnh lúa}          &
+    \textbf{QĐ-AD-02.2} & \textbf{Thêm bệnh lúa} &
     Thực hiện theo 2 bước:
     \begin{enumerate}[leftmargin=*,topsep=2pt,itemsep=1pt]
         \item \textbf{Upload ảnh minh họa (nếu có):} Quản trị viên chọn file ảnh, hệ thống gửi lên Cloudinary qua API độc lập và trả về đường dẫn ảnh (\texttt{secure\_url}).
@@ -1118,9 +1188,9 @@ Chi tiết yêu cầu chức năng nghiệp vụ của từng nhóm người dù
         \item \textbf{Đường dẫn ảnh (imageUrl):} tối đa 512 ký tự, có thể để trống nếu chưa có ảnh.
         \item \textbf{Phác đồ điều trị (treatment):} kiểu văn bản dài, không giới hạn số ký tự.
     \end{itemize}
-    \textbf{Phân quyền:} Chỉ tài khoản có quyền ADMIN mới được thực hiện thao tác này.                                                                      \\
+    \textbf{Phân quyền:} Chỉ tài khoản có quyền ADMIN mới được thực hiện thao tác này. \\
     \hline
-    \textbf{c) Sửa bệnh lúa}           &
+    \textbf{QĐ-AD-02.3} & \textbf{Sửa bệnh lúa} &
     Thực hiện theo 2 bước:
     \begin{enumerate}[leftmargin=*,topsep=2pt,itemsep=1pt]
         \item \textbf{Upload ảnh mới (nếu cần):} Nếu muốn đổi ảnh, quản trị viên upload ảnh mới trước để lấy đường dẫn mới (\texttt{secure\_url}).
@@ -1132,15 +1202,15 @@ Chi tiết yêu cầu chức năng nghiệp vụ của từng nhóm người dù
         \item \textbf{Tên bệnh và tên khoa học:} phải là duy nhất trong hệ thống (không trùng với bệnh khác).
         \item \textbf{Mức độ nghiêm trọng (severity):} chỉ nhận 1 trong 3 giá trị \texttt{low / medium / high}.
     \end{itemize}
-    \textbf{Phân quyền:} Chỉ tài khoản có quyền ADMIN mới được thực hiện thao tác này.                                                                      \\
+    \textbf{Phân quyền:} Chỉ tài khoản có quyền ADMIN mới được thực hiện thao tác này. \\
     \hline
-    \textbf{d) Ẩn / Xóa bệnh lúa}      &
+    \textbf{QĐ-AD-02.4} & \textbf{Ẩn / Xóa bệnh lúa} &
     Hệ thống áp dụng 2 cơ chế tùy theo tình trạng dữ liệu:
     \begin{itemize}[leftmargin=*,topsep=2pt,itemsep=1pt]
         \item \textbf{Xóa vĩnh viễn:} chỉ áp dụng khi bệnh chưa có bất kỳ dữ liệu lịch sử chẩn đoán nào liên quan.
         \item \textbf{Chuyển sang trạng thái ``Ẩn'':} áp dụng khi bệnh đã có lịch sử chẩn đoán --- dữ liệu cũ được bảo toàn nguyên vẹn, không bị xóa theo.
     \end{itemize}
-    \textbf{Phân quyền:} Chỉ tài khoản có quyền ADMIN mới được thực hiện thao tác này.                                                                      \\
+    \textbf{Phân quyền:} Chỉ tài khoản có quyền ADMIN mới được thực hiện thao tác này. \\
     \hline
 \end{longtable}
 
@@ -1149,21 +1219,32 @@ Chi tiết yêu cầu chức năng nghiệp vụ của từng nhóm người dù
 \noindent\textbf{QĐ-AD-03 --- Quy định Quản lý tri thức dinh dưỡng}
 
 \begin{longtable}{|
+        >{\raggedright\arraybackslash}p{2.2cm}|
         >{\raggedright\arraybackslash}p{2.8cm}|
-        >{\raggedright\arraybackslash}p{12cm}|}
+        >{\raggedright\arraybackslash}p{9.8cm}|}
     \hline
     \rowcolor{headerblue}
-    \textbf{Chức năng}                            & \textbf{Quy trình \& Ràng buộc}                                                           \\
+    \textbf{Mã quy định} & \textbf{Chức năng} & \textbf{Quy trình \& Ràng buộc} \\
+    \hline
+    \endfirsthead
+    \multicolumn{3}{c}{{\tablename\ -- Tiếp theo trang trước}} \\
+    \hline
+    \rowcolor{headerblue}
+    \textbf{Mã quy định} & \textbf{Chức năng} & \textbf{Quy trình \& Ràng buộc} \\
     \hline
     \endhead
-    \textbf{a) Xem danh sách tri thức dinh dưỡng} &
+    \hline \multicolumn{3}{|r|}{{Tiếp tục ở trang sau...}} \\ \hline
+    \endfoot
+    \hline
+    \endlastfoot
+    \textbf{QĐ-AD-03.1} & \textbf{Xem danh sách tri thức} &
     Hệ thống hiển thị danh sách các phân mảnh tri thức (chunk) hiện có trong kho, bao gồm nội dung, nguồn tài liệu và siêu dữ liệu liên quan. \\
     \hline
-    \textbf{b) Nạp tài liệu dinh dưỡng mới}       &
+    \textbf{QĐ-AD-03.2} & \textbf{Nạp tài liệu dinh dưỡng mới} &
     Thực hiện theo 4 bước tuần tự:
     \begin{enumerate}[leftmargin=*,topsep=2pt,itemsep=1pt]
         \item \textbf{Đọc file:} Với file \texttt{.txt} và \texttt{.md}, trình duyệt đọc trực tiếp bằng \texttt{FileReader.readAsText()}. Với file \texttt{.pdf}, tệp được bóc tách nội dung thô ở backend.
-        \item \textbf{Lọc rác động (\texttt{cleanPDFText}):} Loại bỏ hoàn toàn nhiễu số trang độc lập (ví dụ: \texttt{-- 1 of 3 --}), các URL lặp lại, văn bản UI thừa (như ``Thu gọn'', ``Xem thêm'') và hàn gắn các dòng bị bẻ gãy từ PDF. **Đặc biệt:** phải bảo toàn nguyên vẹn các công thức tỷ lệ phân số hóa học nghiệp vụ (như \texttt{1/2}, \texttt{1/3}).
+        \item \textbf{Lọc rác động (\texttt{cleanPDFText}):} Loại bỏ hoàn toàn nhiễu số trang độc lập (ví dụ: \texttt{-- 1 of 3 --}), các URL lặp lại, văn bản UI thừa (như ``Thu gọn'', ``Xem thêm'') và hàn gắn các dòng bị bẻ gãy từ PDF. Đặc biệt phải bảo toàn nguyên vẹn các công thức tỷ lệ phân số hóa học nghiệp vụ (như \texttt{1/2}, \texttt{1/3}).
         \item \textbf{Băm nhỏ ngữ nghĩa (\texttt{splitMarkdown}):} Phân tách tài liệu thành các phân mảnh (chunk) dựa trên ranh giới tiêu đề Markdown (\#, \#\#, \#\#\#) để tạo ra các chunk tri thức chất lượng cao.
         \item \textbf{Vector hóa và lưu trữ:} Từng chunk được gửi tới API nhúng của Google (\texttt{models/gemini-embedding-001}) để tạo vector nhúng đúng \textbf{3072 chiều}. Nội dung, siêu dữ liệu và vector được lưu vào bảng \texttt{nutritions}.
     \end{enumerate}
@@ -1171,13 +1252,13 @@ Chi tiết yêu cầu chức năng nghiệp vụ của từng nhóm người dù
     \begin{itemize}[leftmargin=*,topsep=2pt,itemsep=1pt]
         \item Vector bắt buộc phải có đúng \textbf{3072 chiều} --- sai số chiều thì PostgreSQL/pgvector từ chối lưu trữ.
         \item Mỗi lần truy vấn RAG chỉ được lấy tối đa số chunk theo cấu hình \texttt{RAG\_CONTEXT\_WINDOW} (mặc định 3--5 chunk/bệnh) để tránh tràn bộ nhớ token của mô hình ngôn ngữ.
-        \item **Deduplication \& Fusion (Khử trùng lặp):** Khi phát hiện nhiều bệnh cùng lúc, hệ thống tiến hành gộp các đoạn ngữ cảnh và khử trùng lặp theo ID tài liệu trước khi đưa vào mô hình ngôn ngữ ChatGroq ở nhiệt độ thấp (\texttt{temperature: 0.4}) để triệt tiêu hiện tượng ảo tưởng.
+        \item \textbf{Deduplication \& Fusion:} Khi phát hiện nhiều bệnh cùng lúc, hệ thống gộp các đoạn ngữ cảnh và khử trùng lặp theo ID tài liệu trước khi đưa vào mô hình ngôn ngữ ChatGroq ở nhiệt độ thấp (\texttt{temperature: 0.4}) để triệt tiêu hiện tượng ảo tưởng.
     \end{itemize}
-    \textbf{Phân quyền:} Chỉ tài khoản có quyền ADMIN mới được nạp tài liệu mới.                                                              \\
+    \textbf{Phân quyền:} Chỉ tài khoản có quyền ADMIN mới được nạp tài liệu mới. \\
     \hline
-    \textbf{c) Xóa phân mảnh tri thức}            &
-    Quản trị viên xóa từng phân mảnh tri thức theo ID (UUID). Hệ thống giải phóng không gian lưu trữ vector trong cơ sở dữ liệu.              \\
-    \textbf{Phân quyền:} Chỉ tài khoản có quyền ADMIN mới được thực hiện thao tác này.                                                        \\
+    \textbf{QĐ-AD-03.3} & \textbf{Xóa phân mảnh tri thức} &
+    Quản trị viên xóa từng phân mảnh tri thức theo ID (UUID). Hệ thống giải phóng không gian lưu trữ vector trong cơ sở dữ liệu. \newline
+    \textbf{Phân quyền:} Chỉ tài khoản có quyền ADMIN mới được thực hiện thao tác này. \\
     \hline
 \end{longtable}
 
@@ -1186,24 +1267,35 @@ Chi tiết yêu cầu chức năng nghiệp vụ của từng nhóm người dù
 \noindent\textbf{QĐ-AD-04 --- Quy định Quản lý người dùng}
 
 \begin{longtable}{|
+        >{\raggedright\arraybackslash}p{2.2cm}|
         >{\raggedright\arraybackslash}p{2.8cm}|
-        >{\raggedright\arraybackslash}p{12cm}|}
+        >{\raggedright\arraybackslash}p{9.8cm}|}
     \hline
     \rowcolor{headerblue}
-    \textbf{Chức năng}                   & \textbf{Quy trình \& Ràng buộc}                                                                                                                                                                                                                                                                                                          \\
+    \textbf{Mã quy định} & \textbf{Chức năng} & \textbf{Quy trình \& Ràng buộc} \\
+    \hline
+    \endfirsthead
+    \multicolumn{3}{c}{{\tablename\ -- Tiếp theo trang trước}} \\
+    \hline
+    \rowcolor{headerblue}
+    \textbf{Mã quy định} & \textbf{Chức năng} & \textbf{Quy trình \& Ràng buộc} \\
     \hline
     \endhead
-    \textbf{a) Xem danh sách người dùng} &
+    \hline \multicolumn{3}{|r|}{{Tiếp tục ở trang sau...}} \\ \hline
+    \endfoot
+    \hline
+    \endlastfoot
+    \textbf{QĐ-AD-04.1} & \textbf{Xem danh sách người dùng} &
     Hệ thống hiển thị danh sách người dùng kèm theo các chỉ số thống kê động: tên đăng nhập, email, số lượt chẩn đoán, số lượt phản hồi, vai trò và trạng thái tài khoản. \newline
     \textbf{Nút chuyển đổi giao diện tiện ích:} Tích hợp nút \textit{``Xem giao diện Nông dân''} (mở tab mới an toàn bằng \texttt{target="\_blank"}, \texttt{rel="noopener noreferrer"}) trên Header của Admin Layout; đồng thời tích hợp nút \textit{``Quay lại Dashboard''} trên thanh điều hướng người dùng (chỉ hiển thị khi tài khoản đăng nhập có quyền \texttt{ROLE.ADMIN}). \\
     \hline
-    \textbf{b) Khóa / Mở khóa tài khoản} &
+    \textbf{QĐ-AD-04.2} & \textbf{Khóa / Mở khóa tài khoản} &
     Quản trị viên thực hiện theo các bước sau:
     \begin{enumerate}[leftmargin=*,topsep=2pt,itemsep=1pt]
         \item Chọn tài khoản nông dân cần thay đổi trạng thái từ danh sách.
         \item Thực hiện Khóa/Mở khóa tài khoản (Ban/Unban) đi kèm bắt buộc nhập lý do cấm (\texttt{statusReason}) và thời gian phạt. Các thông tin này được tự động lưu trữ vào cột \texttt{metadata} của bảng \texttt{users}.
     \end{enumerate}
-    \textbf{Ràng buộc:} Quản trị viên tuyệt đối không được chỉnh sửa thông tin cá nhân (họ tên, email, điện thoại) của người dùng khác.                                                                                                                                                                                                                                             \\
+    \textbf{Ràng buộc:} Quản trị viên tuyệt đối không được chỉnh sửa thông tin cá nhân (họ tên, email, điện thoại) của người dùng khác. \\
     \hline
 \end{longtable}
 
@@ -1212,17 +1304,28 @@ Chi tiết yêu cầu chức năng nghiệp vụ của từng nhóm người dù
 \noindent\textbf{QĐ-AD-05 --- Quy định Xử lý phản hồi}
 
 \begin{longtable}{|
+        >{\raggedright\arraybackslash}p{2.2cm}|
         >{\raggedright\arraybackslash}p{2.8cm}|
-        >{\raggedright\arraybackslash}p{12cm}|}
+        >{\raggedright\arraybackslash}p{9.8cm}|}
     \hline
     \rowcolor{headerblue}
-    \textbf{Chức năng}                 & \textbf{Quy trình \& Ràng buộc}                                                     \\
+    \textbf{Mã quy định} & \textbf{Chức năng} & \textbf{Quy trình \& Ràng buộc} \\
+    \hline
+    \endfirsthead
+    \multicolumn{3}{c}{{\tablename\ -- Tiếp theo trang trước}} \\
+    \hline
+    \rowcolor{headerblue}
+    \textbf{Mã quy định} & \textbf{Chức năng} & \textbf{Quy trình \& Ràng buộc} \\
     \hline
     \endhead
-    \textbf{a) Xem danh sách phản hồi} &
-    Hệ thống hiển thị danh sách phiếu phản hồi chưa xử lý, ưu tiên phiếu gửi sớm nhất.                                       \\
+    \hline \multicolumn{3}{|r|}{{Tiếp tục ở trang sau...}} \\ \hline
+    \endfoot
     \hline
-    \textbf{b) Xử lý phản hồi}         &
+    \endlastfoot
+    \textbf{QĐ-AD-05.1} & \textbf{Xem danh sách phản hồi} &
+    Hệ thống hiển thị danh sách phiếu phản hồi chưa xử lý, ưu tiên phiếu gửi sớm nhất. \\
+    \hline
+    \textbf{QĐ-AD-05.2} & \textbf{Xử lý phản hồi} &
     Quản trị viên thực hiện theo 4 bước tuần tự:
     \begin{enumerate}[leftmargin=*,topsep=2pt,itemsep=1pt]
         \item Xem danh sách phiếu chưa xử lý, ưu tiên phiếu gửi sớm nhất.
@@ -1239,24 +1342,35 @@ Chi tiết yêu cầu chức năng nghiệp vụ của từng nhóm người dù
 \noindent\textbf{QĐ-AD-06 --- Quy định Hệ thống}
 
 \begin{longtable}{|
+        >{\raggedright\arraybackslash}p{2.2cm}|
         >{\raggedright\arraybackslash}p{2.8cm}|
-        >{\raggedright\arraybackslash}p{12cm}|}
+        >{\raggedright\arraybackslash}p{9.8cm}|}
     \hline
     \rowcolor{headerblue}
-    \textbf{Chức năng}                            & \textbf{Quy trình \& Ràng buộc}                                                                                                                                                                                                                                                                               \\
+    \textbf{Mã quy định} & \textbf{Chức năng} & \textbf{Quy trình \& Ràng buộc} \\
+    \hline
+    \endfirsthead
+    \multicolumn{3}{c}{{\tablename\ -- Tiếp theo trang trước}} \\
+    \hline
+    \rowcolor{headerblue}
+    \textbf{Mã quy định} & \textbf{Chức năng} & \textbf{Quy trình \& Ràng buộc} \\
     \hline
     \endhead
-    \textbf{a) Cập nhật mô hình AI}               &
+    \hline \multicolumn{3}{|r|}{{Tiếp tục ở trang sau...}} \\ \hline
+    \endfoot
+    \hline
+    \endlastfoot
+    \textbf{QĐ-AD-06.1} & \textbf{Cập nhật mô hình AI} &
     Quản trị viên thực hiện quản lý và triển khai mô hình qua quy trình \textbf{MLOps nâng cao}:
     \begin{enumerate}[leftmargin=*,topsep=2pt,itemsep=1pt]
-        \item \textbf{Tải lên \& Lưu trữ:} Tải tệp mô hình mới (.onnx) kèm ghi chú lên Cloudflare R2 (lưu trữ tệp nặng) và lưu bản ghi vào bảng \texttt{ai\_models} dưới trạng thái chưa kích hoạt. Áp dụng cơ chế an toàn \textbf{Upload-First, Delete-Later} (chỉ xóa tệp cũ sau khi tệp mới được ghi nhận thành công).
+        \item \textbf{Tải lên \& Lưu trữ:} Tải tệp mô hình mới (.onnx) kèm ghi chú lên Cloudflare R2 và lưu bản ghi vào bảng \texttt{ai\_models} dưới trạng thái chưa kích hoạt. Áp dụng cơ chế an toàn \textbf{Upload-First, Delete-Later} (chỉ xóa tệp cũ sau khi tệp mới được ghi nhận thành công).
         \item \textbf{Tải cục bộ \& Bộ đệm (Smart Local Caching):} Khi kích hoạt mô hình, hệ thống kiểm tra bộ đệm cục bộ trên đĩa cứng (\texttt{.models\_cache/}) để nạp trực tiếp vào RAM, giảm thiểu thời gian chờ tải từ vài phút xuống microsecond.
         \item \textbf{Bảo vệ RAM (RAM Safe-Guard FIFO Eviction Queue):} Quản lý đồng thời nhiều mô hình qua biến \texttt{sessions} Map trong RAM. Nếu số lượng session vượt cờ cấu hình \texttt{MAX\_CONCURRENT\_MODELS} (mặc định: 1), mô hình cũ nhất trong hàng đợi FIFO sẽ bị tự động thu hồi (evict) và giải phóng khỏi RAM để tránh lỗi Out-of-Memory (OOM).
         \item \textbf{Khóa chống Race Condition:} Sử dụng Set khóa bảo vệ \texttt{loadingModels} để chặn đứng hành vi spam nút kích hoạt từ Admin (trả về lỗi HTTP 429 Too Many Requests).
         \item \textbf{Cập nhật không gián đoạn (Hot-Reload Swapping):} Thay thế mô hình cũ và nạp lại mô hình mới vào bộ nhớ RAM ngay lập tức mà không cần khởi động lại máy chủ.
     \end{enumerate} \\
     \hline
-    \textbf{b) Cấu hình hệ thống động \& Báo cáo} &
+    \textbf{QĐ-AD-06.2} & \textbf{Cấu hình hệ thống \& Báo cáo} &
     Hệ thống hỗ trợ 2 chức năng vận hành chính:
     \begin{itemize}[leftmargin=*,topsep=2pt,itemsep=1pt]
         \item \textbf{Cấu hình hệ thống động:} Thay đổi trực tiếp các tham số hệ thống động được lưu trong PostgreSQL và tự động đồng bộ hóa lên Redis Cache mà không cần khởi động lại Server:
@@ -1268,7 +1382,7 @@ Chi tiết yêu cầu chức năng nghiệp vụ của từng nhóm người dù
                   \item \texttt{MAX\_DIAGNOSIS\_PER\_DAY}: Giới hạn chẩn đoán/ngày của nông dân (Mặc định: \texttt{50}).
               \end{enumerate}
         \item \textbf{Xem thống kê \& báo cáo:} Hiển thị bản đồ nhiệt dịch bệnh dựa trên tọa độ GPS các lượt chẩn đoán thực địa, và báo cáo hiệu suất tỷ lệ chẩn đoán đúng/sai của mô hình AI theo từng loại bệnh hại.
-    \end{itemize}                                                                                                                                             \\
+    \end{itemize} \\
     \hline
 \end{longtable}
 
